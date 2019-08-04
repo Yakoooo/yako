@@ -37,7 +37,7 @@
 
 <style lang="less" scoped>
 	.container{
-		padding-top: 40px;
+		padding: 50px 0rem;
 	}
 	.container{
 		overflow-x: hidden;
