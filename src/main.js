@@ -16,11 +16,17 @@ Vue.use(VueRouter)
 import app from './app.vue'
 
 //导入mint-ui组件 按需获取
-import { header ,Swipe, SwipeItem ,Button } from 'mint-ui'
-Vue.component(header.name,header)
-Vue.component(Swipe.name,Swipe)
-Vue.component(SwipeItem.name,SwipeItem)
-Vue.component(Button.name, Button)
+// import { header ,Swipe, SwipeItem ,Button ,Lazyload  } from 'mint-ui'
+// Vue.component(header.name,header)
+// Vue.component(Swipe.name,Swipe)
+// Vue.component(SwipeItem.name,SwipeItem)
+// Vue.component(Button.name, Button)
+// Vue.use(Lazyload)
+
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+Vue.use(MintUI)
+
 
 //导入mui样式
 import Mui from './lib/mui/css/mui.min.css'
@@ -34,6 +40,19 @@ import moment from 'moment'
 Vue.filter('hous',function(data,f="YYYY-MM-DD HH:mm;ss"){
 	return moment(data).format(f);
 })
+
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
+// Vue.use(preview, {
+//   mainClass: 'pswp--minimal--dark',
+//   barsSize: {top: 0, bottom: 0},
+//   captionEl: false,
+//   fullscreenEl: false,
+//   shareEl: false,
+//   bgOpacity: 0.85,
+//   tapToClose: true,
+//   tapToToggleControls: false
+// })
 
 //实例化vue
 var vm = new Vue({

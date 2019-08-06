@@ -1,11 +1,9 @@
 <template>
 	<div>
 		<!-- 一个根目录 -->
-		<mt-swipe :auto="4000">
-			<mt-swipe-item v-for="item in lunbo" :key="item.id">
-				<img :src=" item.img " />
-			</mt-swipe-item>
-		</mt-swipe>
+		
+		<!-- 轮播图 -->  <!-- 绑定事件给子组件传参 -->
+		<swiper :lunbo="lunbo" :isFulle='true'></swiper>
 
 		<ul class="mui-table-view mui-grid-view mui-grid-9">
 			<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
@@ -13,14 +11,16 @@
 					<img src="../images/menu1.png" />
 					<div class="mui-media-body">新闻资讯</div>
 				</router-link></li>
-			<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+			<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+				<router-link to="/home/photo">
 					<img src="../images/menu2.png" />
 					<div class="mui-media-body">图片分享</div>
-				</a></li>
-			<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
+				</router-link></li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+				<router-link to="../home/goodslist">
 					<img src="../images/menu3.png" />
 					<div class="mui-media-body">商品购买</div>
-				</a></li>
+				</router-link></li>
 			<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3"><a href="#">
 					<img src="../images/menu4.png" />
 					<div class="mui-media-body">留言反馈</div>
@@ -54,8 +54,8 @@
 	import {
 		Toast
 	} from 'mint-ui'
-	import Axios from 'axios'
-	//引入axios
+	
+	import swiper from './swiper/swiper.vue'
 
 	export default {
 		data: function() {
@@ -68,7 +68,7 @@
 		},
 		methods: {
 			lbt: function() {
-				Axios.get('http://www.liulongbin.top:3005/api/getlunbo').then((result) => {
+				 this.$axios.get('http://www.liulongbin.top:3005/api/getlunbo').then((result) => {
 					if (result.data.status === 0) {
 						this.lunbo = result.data.message;
 						console.log(this.lunbo[0].img)
@@ -77,28 +77,14 @@
 					}
 				});
 			}
+		},
+		components:{
+			swiper : swiper
 		}
 	}
 </script>
 
 <style lang="less" scoped>
-	.mint-swipe {
-		height: 200px;
-	}
-
-	.mint-swipe-item {
-		&:nth-child(1) {
-			background-color: red;
-		}
-
-		&:nth-child(2) {
-			background-color: blue;
-		}
-
-		&:nth-child(3) {
-			background-color: green;
-		}
-	}
 	.mui-grid-view.mui-grid-9{
 		border: none;
 		background: white;
