@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<!-- header -->
-		<mt-header fixed title="Vue-小项目">
+		<mt-header fixed title="Vue-移动端-小项目">
 			<div slot="left" @click="go" v-if=" this.flag "><!-- 首页不要返回按钮 -->
 				<mt-button icon="back">返回</mt-button>
 			</div>
