@@ -1,7 +1,11 @@
 <template>
 	<div class="container">
 		<!-- header -->
-		<mt-header fixed title="Vue-小项目"></mt-header>
+		<mt-header fixed title="Vue-小项目">
+			<div slot="left" @click="go" v-if=" this.flag "><!-- 首页不要返回按钮 -->
+				<mt-button icon="back">返回</mt-button>
+			</div>
+		</mt-header>
 
 		<!-- router-view content-->
 		<transition>
@@ -20,7 +24,7 @@
 			</router-link>
 			<router-link class="mui-tabbar-li" to="/shopcar">
 				<span class="mui-icon mui-icon-extra mui-icon-extra-cart">
-					<span class="mui-badge" id="ball2">0</span>
+					<span class="mui-badge" id="ball2">{{ this.$store.getters.getnumber }}</span>
 				</span>
 				<span class="mui-tab-label">购物车</span>
 			</router-link>
@@ -33,12 +37,37 @@
 </template>
 
 <script>
+	export default{
+		created(){
+			this.flag = this.$route.path === '/home'?false:true;
+		},
+		data:function(){
+			return {
+				flag : false //因为如果直接在其他页面刷新，不会进入wacth，会取得默认值false，所以在钩子函数，数据构建完后，调用判断一次flag的值
+			}
+		},
+		methods:{
+			go:function(){
+				this.$router.go(-1) // $router操作编程式导航相关
+			}
+		},
+		watch:{
+			'$route.path':function(newval){
+				console.log(newval)
+				if(newval === '/home'){
+					this.flag = false
+				}else{
+					this.flag = true
+				}
+			}
+		}
+	}
 </script>
 
 <style lang="less" scoped>
 	.container {
 		padding: 50px 0rem;
-		padding-top:2.5rem;
+		padding-top: 2.5rem;
 	}
 
 	.container {
@@ -94,7 +123,8 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-	.mui-active{
+
+	.mui-active {
 		color: blue;
 	}
 </style>

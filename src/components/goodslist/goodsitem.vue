@@ -24,7 +24,7 @@
 					<p> 购买数量 <number :max='goodsinfo.stock_quantity' @getnumber='getnumber'></number> </p>
 					<p>  <!-- 绑定数据给子组件 -->
 						<mt-button type='primary' size='small'>立即购买</mt-button>
-						<mt-button type='danger' size='small' @click="flag = !flag">加入购物车</mt-button>
+						<mt-button type='danger' size='small' @click="addcart">加入购物车</mt-button>
 					</p>
 				</div>
 			</div>
@@ -116,6 +116,18 @@
 			getnumber:function(num){
 				this.numberb = num;
 				//写个方法给子组件调用，子组件一调用，父组件就保存子组件传入的值，从而获取子组件的数据
+			},
+			addcart:function(){
+				this.flag = !this.flag
+				//点击购物车，将数据写一串数组，传给vuex。购物车组件再从vuex调用
+				var cart = {
+					'id' : this.id, // 商品id
+					'numberb' : parseInt(this.numberb),  //购买数量
+					'price' : parseInt(this.goodsinfo.sell_price), //价格
+					'selected' : true //默认商品状态
+				}
+				
+				this.$store.commit('addcar',cart)
 			}
 		},
 		components: {
