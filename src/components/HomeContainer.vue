@@ -68,7 +68,8 @@
 		},
 		methods: {
 			lbt: function() {
-				 this.$axios.get('http://www.liulongbin.top:3005/api/getlunbo').then((result) => {
+				 this.$axios.get('../../static/img.json').then((result) => {
+					 console.log(result)
 					if (result.data.status === 0) {
 						this.lunbo = result.data.message;
 						console.log(this.lunbo[0].img)
@@ -80,7 +81,7 @@
 		},
 		components:{
 			swiper : swiper
-		}
+		},
 	}
 </script>
 
